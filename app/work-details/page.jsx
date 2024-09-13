@@ -1,10 +1,9 @@
 "use client";
 
-import "@styles/WorkDetails.scss";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import Loader from "@components/Loader";
 import Navbar from "@components/Navbar";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect, useState, Suspense } from "react";
+import Loader from "@components/Loader";
 import {
   ArrowForwardIos,
   Edit,
@@ -16,10 +15,9 @@ import {
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { SiWhatsapp } from "react-icons/si";
-import Link from 'next/link'
+import Link from 'next/link';
 
-
-const WorkDetails = () => {
+const WorkDetailsContent = () => {
   const [loading, setLoading] = useState(true);
   const [work, setWork] = useState({});
 
@@ -28,7 +26,6 @@ const WorkDetails = () => {
 
   const message = `Olá, tenho interesse no produto "${work.title}" que está à venda por R$${work.price}.`;
   const whatsappURL = `https://api.whatsapp.com/send?phone=${work.whatsapp}&text=${encodeURIComponent(message)}`;
-
 
   /* GET WORK DETAILS */
   useEffect(() => {
@@ -47,7 +44,7 @@ const WorkDetails = () => {
   }, [workId]);
 
   const { data: session, update } = useSession();
-
+  const router = useRouter();
   const userId = session?.user?._id;
 
   /* SLIDER FOR PHOTOS */
@@ -82,11 +79,8 @@ const WorkDetails = () => {
     setCurrentIndex(index);
   };
 
-  const router = useRouter();
-
   /* ADD TO WISHLIST */
   const wishlist = session?.user?.wishlist;
-
   const isLiked = wishlist?.find((item) => item?._id === work._id);
 
   const patchWishlist = async () => {
@@ -104,7 +98,6 @@ const WorkDetails = () => {
 
   /* ADD TO CART */
   const cart = session?.user?.cart;
-
   const isInCart = cart?.find((item) => item?.workId === workId);
 
   const addToCart = async () => {
@@ -144,11 +137,11 @@ const WorkDetails = () => {
     }
   };
 
-  console.log(session?.user?.cart);
+  if (loading) {
+    return <Loader />;
+  }
 
-  return loading ? (
-    <Loader />
-  ) : (
+  return (
     <>
       <Navbar />
       <div className="work-details">
@@ -184,10 +177,10 @@ const WorkDetails = () => {
             {work.workPhotoPaths?.map((photo, index) => (
               <div className="slide" key={index}>
                 <img src={photo} alt="work" />
-                <div className="prev-button" onClick={(e) => goToPrevSlide(e)}>
+                <div className="prev-button" onClick={goToPrevSlide}>
                   <ArrowBackIosNew sx={{ fontSize: "15px" }} />
                 </div>
-                <div className="next-button" onClick={(e) => goToNextSlide(e)}>
+                <div className="next-button" onClick={goToNextSlide}>
                   <ArrowForwardIos sx={{ fontSize: "15px" }} />
                 </div>
               </div>
@@ -235,16 +228,20 @@ const WorkDetails = () => {
           <ShoppingCart />
           ADD TO CART
         </button>
-        
-          <Link  class="whatsapp-button" href={whatsappURL} target="_blank" rel="noopener noreferrer" >
-            <SiWhatsapp />
-            ENVIAR MENSAGEM
-          </Link>
-       
 
+        <Link className="whatsapp-button" href={whatsappURL} target="_blank" rel="noopener noreferrer">
+          <SiWhatsapp />
+          ENVIAR MENSAGEM
+        </Link>
       </div>
     </>
   );
 };
+
+const WorkDetails = () => (
+  <Suspense fallback={<Loader />}>
+    <WorkDetailsContent />
+  </Suspense>
+);
 
 export default WorkDetails;
