@@ -1,0 +1,130 @@
+@import "./variables.module.scss";
+@import "./breakpoints.scss";
+
+.login {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+
+  &_decor {
+    height: 450px;
+    width: 300px;
+    border-radius: 30px 0 0 30px;
+
+    @media (max-width: 720px) { // Breakpoint médio
+      display: none;
+    }
+  }
+
+  &_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    gap: 15px;
+    height: 450px;
+    background-color: #21565a;
+    border-radius: 0 30px 30px 0;
+
+    @media (min-width: 1000px) { // Breakpoint grande
+      width: 45%;
+    }
+
+    @media (max-width: 820px) { // Breakpoint médio-longo
+      width: 50%;
+    }
+
+    @media (max-width: 720px) { // Breakpoint médio
+      width: 70%;
+      border-radius: 30px;
+    }
+
+    &_form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      width: 70%;
+
+      input {
+        width: 100%;
+        padding: 7px 15px;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        outline: none;
+        text-align: center;
+        color: white;
+
+        &:not(:placeholder-shown):focus {
+          background: transparent; // ou background: none;
+        }
+
+        &::placeholder {
+          color: white;
+        }
+      }
+
+      .error {
+        color: white;
+      }
+
+      button {
+        margin-top: 15px;
+        width: 250px;
+        background-color: $primary; // Substitua $primary pela cor desejada
+        border: none;
+        padding: 10px;
+        color: #21565a;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        align-items: center;
+
+        &:hover {
+          background-color: darken($primary, 10%); // Escurece a cor para efeito hover
+        }
+      }
+    }
+
+    .google {
+      margin-top: 5px;
+      width: 250px;
+      background-color: white; // Cor do botão do Google
+      border: none;
+      padding: 10px;
+      color: #21565a;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      &:hover {
+        background-color: #357ae8; // Cor mais escura para efeito hover
+      }
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      font-size: 15px;
+      font-weight: 500;
+      margin: 14px 0;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    p {
+      color: #21565a;
+      font-size: 13px;
+    }
+  }
+}

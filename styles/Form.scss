@@ -1,0 +1,257 @@
+@import "./variables.module.scss";
+@import "./breakpoints.scss";
+
+/* Para WebKit (Chrome, Safari, Edge) */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+
+.form {
+  background-color: $lightgrey;
+  padding: 40px 60px 120px;
+
+  @include mm {
+    padding: 40px 20px;
+  }
+
+  h1 {
+    color: $blue;
+    margin-bottom: 30px;
+  }
+
+  form {
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+   
+        
+
+    @include sm {
+      padding: 30px 20px;
+    }
+
+    h3 {
+      color: $blue;
+      margin: 0;
+    }
+
+    .category-list {
+      margin: 20px 0 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px; // Ajusta o espaçamento entre categorias
+      padding: 0;
+
+      @include lg {
+        padding: 0 20px;
+      }
+
+      @include md {
+        padding: 0;
+      }
+
+      p {
+        font-weight: 600;
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 12px;
+        background-color: $white;
+        border: 1px solid $grey;
+        cursor: pointer;
+        transition: all 0.3s ease; // Transição suave
+    
+        &:hover {
+          color: $white;
+          background-color: $pinkred;
+          box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); // Sombra mais destacada
+        }
+      }
+
+      .selected {
+        color: $white;
+        background-color: $pinkred;
+        border-color: $pinkred;
+      }
+    }
+
+    .photos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin: 20px 0;
+
+      .photo {
+        position: relative;
+        width: 200px;
+        height: 150px;
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); // Sombra leve
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover; // Ajusta a imagem para cobrir o espaço
+        }
+
+        button {
+          position: absolute;
+          right: 0;
+          top: 0;
+          padding: 3px;
+          border: none;
+          background-color: rgba(255, 255, 255, 0.8);
+          font-size: 20px;
+          cursor: pointer;
+
+          &:hover {
+            color: $pinkred
+          }
+        }
+      }
+
+      label {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px dashed $grey;
+        border-radius: 10px;
+        cursor: pointer;
+        padding: 20px;
+        text-align: center;
+        background-color: $white;
+
+        .icon {
+          font-size: 50px;
+        }
+
+        p {
+          font-weight: 600;
+          text-align: center;
+        }
+      }
+
+      .together {
+        width: 200px;
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .alone {
+        width: 200px;
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @include mm {
+          padding: 40px 80px;
+        }
+
+        @include sm {
+          padding: 40px 30px;
+        }
+      }
+    }
+
+    .title {
+      input {
+        border: 1px solid $grey;
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        width: 100%;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .description {
+      p {
+        font-weight: 600;
+        margin: 20px 0 10px;
+      }
+
+      input,
+      textarea {
+        border: 1px solid $grey;
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 500;
+        width: 600px;
+
+        @include ml {
+          width: 450px
+        }
+
+        @include md {
+          width: 350px
+        }
+
+        @include sm {
+          width: 280px
+        }
+
+        &:focus {
+          outline: none;
+        }
+      }
+
+      span {
+        font-size: 25px;
+        font-weight: 600;
+        margin-right: 20px;
+      }
+
+      .price {
+        width: 200px;
+      }
+    }
+  }
+
+  .submit_btn {
+    font-weight: 600;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 12px;
+    background-color: $white;
+    border: 1px solid $grey;
+    cursor: pointer;
+    transition: all 0.3s ease; // Transição suave
+    margin-top: 30px;
+
+    &:hover {
+      color: $white;
+      background-color: $pinkred;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); // Sombra mais destacada
+    
+    };
+  }
+
+  .alert {
+    border: 2px solid red; /* Borda vermelha para destacar o alerta */
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin: 5px;
+  }
+
+
+
+
+
+}

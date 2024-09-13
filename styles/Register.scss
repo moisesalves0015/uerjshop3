@@ -1,0 +1,136 @@
+@import "./variables.module.scss";
+@import "./breakpoints.scss";
+
+.register {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+
+  &_decor {
+    height: 550px;
+    width: 300px;
+    border-radius: 30px 0 0 30px;
+
+    @media (max-width: 720px) {
+      display: none;
+    }
+  }
+
+  &_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    gap: 15px;
+    height: 550px;
+    background-color: #21565a;
+    border-radius: 0 30px 30px 0;
+
+    @media (min-width: 1000px) {
+      width: 45%;
+    }
+
+    @media (max-width: 820px) {
+      width: 50%;
+    }
+
+    @media (max-width: 720px) {
+      width: 70%;
+      border-radius: 30px;
+    }
+
+    &_form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      width: 70%;
+
+      input {
+        width: 100%;
+        padding: 7px 15px;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        outline: none;
+        text-align: center;
+        color: white;
+
+        &:not(:placeholder-shown):focus {
+          background: transparent;
+        }
+
+        &::placeholder {
+          color: white;
+        }
+      }
+
+      label {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 9px;
+        cursor: pointer;
+        color: white;
+        font-size: 15px; // Padrão de tamanho de fonte
+
+        img {
+          width: 25px;
+        }
+      }
+
+      button {
+        margin-top: 15px;
+        width: 250px;
+        background-color: #357ae8;
+        border: none;
+        padding: 10px;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: darken(#357ae8, 10%);
+        }
+      }
+    }
+
+    .google {
+      margin-top: 5px;
+      width: 250px;
+      background-color: white;
+      border: none;
+      padding: 10px;
+      color: #21565a;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      &:hover {
+        background-color: #357ae8;
+      }
+    }
+
+    a {
+      text-decoration: none;
+      color: white;
+      font-size: 15px;
+      font-weight: 500;
+      margin-top: 10px;
+      text-align: center;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

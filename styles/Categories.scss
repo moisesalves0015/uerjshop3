@@ -1,0 +1,71 @@
+@import "./variables.module.scss";
+@import "./breakpoints.scss";
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  margin-bottom: 60px;
+  
+  border: 1px solid $lightgrey;
+  border-width: 1px 0;
+  background-color: $lightblue;
+  
+  // Estilo das categorias
+  p {
+    font-weight: 600;
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: white;
+    border: 1px solid $lightgrey;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease; // Transição suave
+    
+    // Efeito de escala e sombra ao passar o mouse
+    &:hover {
+      color: white;
+      background-color: $pinkred;
+      transform: scale(1.05); // Aumenta levemente o tamanho
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); // Sombra mais destacada
+    }
+  }
+
+  // Categoria selecionada com cores modernas
+  .selected {
+    color: white;
+    background-color: $pinkred;
+    border-color: $pinkred;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); // Sombra mais destacada
+  }
+
+  // Responsividade para telas menores
+  @include sm {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  @include mm {
+    gap: 15px;
+    p {
+      font-size: 14px;
+      padding: 8px 15px;
+    }
+  }
+
+  @include md {
+    gap: 20px;
+    p {
+      font-size: 15px;
+      padding: 10px 18px;
+    }
+  }
+
+  @include lg {
+    padding: 20px 30px;
+  }
+}
+
