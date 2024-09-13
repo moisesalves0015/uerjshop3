@@ -8,46 +8,39 @@ import { useState } from "react";
 const Form = ({ type, work, setWork, handleSubmit }) => {
   const [whatsappAlert, setWhatsappAlert] = useState(false);
 
+  // Garantir que photos esteja sempre definido como um array
+  const workPhotos = Array.isArray(work.photos) ? work.photos : [];
+
   const handleUploadPhotos = (e) => {
-    const newPhotos = e.target.files;
-    setWork((prevWork) => {
-      return {
-        ...prevWork,
-        photos: [...prevWork.photos, ...newPhotos],
-      };
-    });
+    const newPhotos = Array.from(e.target.files); // Use Array.from para converter FileList para Array
+    setWork((prevWork) => ({
+      ...prevWork,
+      photos: [...workPhotos, ...newPhotos],
+    }));
   };
 
   const handleRemovePhoto = (indexToRemove) => {
-    setWork((prevWork) => {
-      return {
-        ...prevWork,
-        photos: prevWork.photos.filter((_, index) => index !== indexToRemove),
-      };
-    });
+    setWork((prevWork) => ({
+      ...prevWork,
+      photos: workPhotos.filter((_, index) => index !== indexToRemove),
+    }));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setWork((prevWork) => {
-      return {
-        ...prevWork,
-        [name]: value,
-      };
-
-      
-    });
+    setWork((prevWork) => ({
+      ...prevWork,
+      [name]: value,
+    }));
   };
 
   // Função para garantir que o input aceite apenas números
   const handleWhatsappInput = (e) => {
     const value = e.target.value.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
-    setWork((prevWork) => {
-      return {
-        ...prevWork,
-        whatsapp: value,
-      };
-    });
+    setWork((prevWork) => ({
+      ...prevWork,
+      whatsapp: value,
+    }));
   };
 
   // Validação para garantir que o número do WhatsApp tenha 11 dígitos
@@ -68,7 +61,7 @@ const Form = ({ type, work, setWork, handleSubmit }) => {
       return;
     }
 
-    if (work.photos.length === 0) {
+    if (workPhotos.length === 0) {
       alert("Por favor, adicione pelo menos uma imagem.");
       return;
     }
@@ -103,7 +96,7 @@ const Form = ({ type, work, setWork, handleSubmit }) => {
 
         <h3>Adicione imagens para mostrar o seu anúncio</h3>
         <div className="photos">
-          {work.photos.length < 1 && (
+          {workPhotos.length < 1 && (
             <>
               <input
                 id="image"
@@ -122,9 +115,9 @@ const Form = ({ type, work, setWork, handleSubmit }) => {
             </>
           )}
 
-          {work.photos.length > 0 && (
+          {workPhotos.length > 0 && (
             <>
-              {work?.photos?.map((photo, index) => (
+              {workPhotos.map((photo, index) => (
                 <div key={index} className="photo">
                   {photo instanceof Object ? (
                     <img src={URL.createObjectURL(photo)} alt="work" />
@@ -165,7 +158,7 @@ const Form = ({ type, work, setWork, handleSubmit }) => {
             placeholder="Título"
             onChange={handleChange}
             name="title"
-            value={work.title}
+            value={work.title || ''} // Garantir que work.title não seja undefined
             required
           />
           <p>Descrição</p>
@@ -174,7 +167,7 @@ const Form = ({ type, work, setWork, handleSubmit }) => {
             placeholder="Descrição"
             onChange={handleChange}
             name="description"
-            value={work.description}
+            value={work.description || ''} // Garantir que work.description não seja undefined
             required
           />
           <p>Agora, informe o valor</p>
@@ -184,7 +177,7 @@ const Form = ({ type, work, setWork, handleSubmit }) => {
             placeholder="Preço"
             onChange={handleChange}
             name="price"
-            value={work.price}
+            value={work.price || ''} // Garantir que work.price não seja undefined
             required
             className="price"
           />
@@ -195,8 +188,8 @@ const Form = ({ type, work, setWork, handleSubmit }) => {
           <input
             type="text"
             placeholder="Whatsapp"
-            value={work.whatsapp}
-            onInput={handleWhatsappInput} // Garante apenas números
+            value={work.whatsapp || ''} // Garantir que work.whatsapp não seja undefined
+            onChange={handleWhatsappInput} // Corrigido para onChange
             onBlur={validateWhatsapp} // Valida ao sair do campo
             required
             className="price"
