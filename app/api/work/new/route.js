@@ -1,57 +1,65 @@
 import { connectToDB } from "@mongodb/database";
-import { writeFile } from "fs/promises"
 import Work from "@models/Work";
+import cloudinary from 'cloudinary';
 
-export async function POST (req) {
+cloudinary.v2.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+export async function POST(req) {
   try {
     /* Connect to MongoDB */
-    await connectToDB()
+    await connectToDB();
 
-    const data = await req.formData()
+    const data = await req.formData();
 
     /* Extract info from the data */
-    const creator = data.get("creator")
-    const category = data.get("category")
-    const title = data.get("title")
-    const description = data.get("description")
-    const price = data.get("price")
-    const whatsapp = data.get("whatsapp")
+    const creator = data.get("creator");
+    const category = data.get("category");
+    const title = data.get("title");
+    const description = data.get("description");
+    const price = data.get("price");
+    const whatsapp = data.get("whatsapp");
 
     /* Get an array of uploaded photos */
-    const photos = data.getAll("workPhotoPaths")
+    const photos = data.getAll("workPhotoPaths");
 
-    const workPhotoPaths = []
+    const workPhotoPaths = [];
 
     /* Process and store each photo  */
     for (const photo of photos) {
-      // Read the photo as an ArrayBuffer
-      const bytes = await photo.arrayBuffer()
+      const buffer = Buffer.from(await photo.arrayBuffer());
 
-      // Convert it to a Buffer
-      const buffer = Buffer.from(bytes)
+      // Upload the photo to Cloudinary
+      const result = await cloudinary.v2.uploader.upload_stream({
+        folder: "uerjshop"
+      }, (error, result) => {
+        if (error) throw new Error('Erro no upload para o Cloudinary: ' + error.message);
+        return result;
+      });
 
-      // Define the destination path for the uploaded file
-      const workImagePath = `C:/Users/moise/OneDrive/Desktop/uerjshop3/public/uploads/${photo.name}`
-
-      // Write the buffer to the filessystem
-      await writeFile(workImagePath, buffer)
-
-      // Store the file path in an array
-      workPhotoPaths.push(`/uploads/${photo.name}`)
+      // Store the Cloudinary URL in the array
+      workPhotoPaths.push(result.secure_url);
     }
 
     /* Create a new Work */
     const newWork = new Work({
-      creator, category, title, description, price, whatsapp, workPhotoPaths
-    })
+      creator,
+      category,
+      title,
+      description,
+      price,
+      whatsapp,
+      workPhotoPaths
+    });
 
-    await newWork.save()
+    await newWork.save();
 
-    return new Response(JSON.stringify(newWork), { status: 200 })
-  }
-  catch (err) {
-    console.log(err)
-    return new Response("Failed to create a new Work", { status: 500 })
+    return new Response(JSON.stringify(newWork), { status: 200 });
+  } catch (err) {
+    console.log(err);
+    return new Response("Falha ao criar novo anúncio", { status: 500 });
   }
 }
-
