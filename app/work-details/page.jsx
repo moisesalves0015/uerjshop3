@@ -16,6 +16,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { SiWhatsapp } from "react-icons/si";
 import Link from 'next/link';
+import "@styles/WorkDetails.scss";
 
 const WorkDetailsContent = () => {
   const [loading, setLoading] = useState(true);
