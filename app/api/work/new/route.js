@@ -32,12 +32,17 @@ export async function POST(req) {
     for (const photo of photos) {
       const buffer = Buffer.from(await photo.arrayBuffer());
 
-      // Upload the photo to Cloudinary
-      const result = await cloudinary.v2.uploader.upload_stream({
-        folder: "uerjshop"
-      }, (error, result) => {
-        if (error) throw new Error('Erro no upload para o Cloudinary: ' + error.message);
-        return result;
+      // Upload the photo to Cloudinary using upload_stream
+      const result = await new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.v2.uploader.upload_stream({
+          folder: "uerjshop"
+        }, (error, result) => {
+          if (error) reject(new Error('Erro no upload para o Cloudinary: ' + error.message));
+          else resolve(result);
+        });
+
+        // Pipe the buffer to the upload stream
+        uploadStream.end(buffer);
       });
 
       // Store the Cloudinary URL in the array
@@ -59,7 +64,7 @@ export async function POST(req) {
 
     return new Response(JSON.stringify(newWork), { status: 200 });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return new Response("Falha ao criar novo anúncio", { status: 500 });
   }
 }

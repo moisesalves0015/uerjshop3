@@ -1,13 +1,14 @@
 @import "./variables.module.scss";
 @import "./breakpoints.scss";
 
+
 .categories {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 20px;
-  padding: 20px;
+  gap: 10px;
+  padding: 15px;
   margin-bottom: 60px;
   
   border: 1px solid $lightgrey;
@@ -24,28 +25,52 @@
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.3s ease; // Transição suave
-    
-    // Efeito de escala e sombra ao passar o mouse
+
+
+
+
+
+    /* Efeito de escala e sombra ao passar o mouse */
     &:hover {
       color: white;
       background-color: $pinkred;
-      transform: scale(1.05); // Aumenta levemente o tamanho
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); // Sombra mais destacada
+      transform: scale(1.05); /* Aumenta levemente o tamanho */
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Sombra mais destacada */
     }
   }
 
-  // Categoria selecionada com cores modernas
+  
+
+  /* Categoria selecionada com cores modernas */
   .selected {
     color: white;
     background-color: $pinkred;
     border-color: $pinkred;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); // Sombra mais destacada
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Sombra mais destacada */
   }
 
-  // Responsividade para telas menores
+  /* Responsividade para telas menores */
   @include sm {
     flex-direction: column;
     padding: 15px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    
+    &.open {
+      max-height: 100%; /* Altura máxima que as categorias podem ter ao abrir */
+    }
+    
+    &.closed {
+      display: none;
+    }
+
+    /* Estilo da categoria selecionada quando fechadas */
+    .selected-category {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+    }
   }
 
   @include mm {
@@ -69,3 +94,35 @@
   }
 }
 
+.toggle-categories {
+  display: none; /* Esconde o botão de toggle em telas maiores */
+  @include sm {
+    display: block; /* Mostra o botão de toggle em telas menores */
+    margin-bottom: 10px;
+  }
+
+  font-weight: 600;
+  font-size: 16px;
+  padding: 10px 20px;
+  background-color: white;
+  border: 1px solid $lightgrey;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Transição suave */
+  margin: 10px 0 10px 10px;
+
+
+  &:hover {
+    color: white;
+    background-color: $pinkred;
+    transform: scale(1.05); /* Aumenta levemente o tamanho */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Sombra mais destacada */
+  }
+
+
+
+
+
+
+
+}

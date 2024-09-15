@@ -26,7 +26,7 @@ const WorkDetailsContent = () => {
   const workId = searchParams.get("id");
 
   const message = `Olá, tenho interesse no produto "${work.title}" que está à venda por R$${work.price}.`;
-  const whatsappURL = `https://api.whatsapp.com/send?phone=${work.whatsapp}&text=${encodeURIComponent(message)}`;
+  const whatsappURL = `https://api.whatsapp.com/send?phone=55${work.whatsapp}&text=${encodeURIComponent(message)}`;
 
   /* GET WORK DETAILS */
   useEffect(() => {

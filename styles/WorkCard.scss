@@ -67,13 +67,15 @@
 
   .info {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: left;
     margin: 15px 0;
 
     h3 {
       font-size: 15px;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
+      font-weight: 600;
     }
 
     .creator {
@@ -89,18 +91,20 @@
       }
 
       span {
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 600;
       }
     }
 
     .price {
       background: $lightblue;
-      padding: 8px;
+      padding: 3px;
+      padding-inline: 6px;
       border-radius: 10px;
-      font-weight: 700;
+      font-weight: 600;
       font-size: 15px;
-      width: 75px;
+    
+      height: 28px;
     }
   }
 

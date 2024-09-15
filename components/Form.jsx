@@ -81,17 +81,21 @@ const Form = ({ type, work, setWork, handleSubmit }) => {
       <form onSubmit={onSubmit}>
         <h3>Em qual categoria seu anúncio se enquadra?</h3>
         <div className="category-list">
-          {categories?.map((item, index) => (
-            <p
-              key={index}
-              className={`${work.category === item ? "selected" : ""}`}
-              onClick={() => {
-                setWork({ ...work, category: item });
-              }}
-            >
-              {item}
-            </p>
-          ))}
+
+          {categories
+            ?.filter(item => item !== "Todas")
+            .map((item, index) => (
+              <p
+                key={index}
+                className={`${work.category === item ? "selected" : ""}`}
+                onClick={() => {
+                  setWork({ ...work, category: item });
+                }}
+              >
+                {item}
+              </p>
+            ))}
+
         </div>
 
         <h3>Adicione imagens para mostrar o seu anúncio</h3>

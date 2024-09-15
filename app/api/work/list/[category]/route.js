@@ -9,7 +9,7 @@ export const GET = async (req, { params }) => {
 
     let workList
 
-    if (category !== "All") {
+    if (category !== "Todas") {
       workList = await Work.find ({ category }).populate("creator")
     } else {
       workList = await Work.find().populate("creator")
