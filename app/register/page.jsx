@@ -90,7 +90,7 @@ const Register = () => {
 
   return (
     <div className="register">
-      <img src="/assets/register.jpg" alt="register" className="register_decor" />
+      <img src="../public/uploads/uerj-3-1000x580.jpg" alt="register" className="register_decor" />
       <div className="register_content">
         <form className="register_content_form" onSubmit={handleSubmit}>
           <input

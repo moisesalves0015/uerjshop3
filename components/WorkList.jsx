@@ -3,7 +3,7 @@ import WorkCard from "./WorkCard"
 
 const WorkList = ({ data }) => {
   return (
-    <div>
+    <div className='work-list'>
     {data
       .slice() // Cria uma cópia do array para evitar mutação
       .reverse()
