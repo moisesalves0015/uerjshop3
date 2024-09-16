@@ -102,7 +102,6 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="navbar_mobile">
-            <h4 className="navbar_mobile_ola">Olá </h4>
             <h1 className="navbar_mobile_welcome">Bem-vindo ao Marketplace da UERJ</h1>
             <NavbarSearch />
           </div>

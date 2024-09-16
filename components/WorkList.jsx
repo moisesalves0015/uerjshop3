@@ -30,18 +30,18 @@ const WorkList = ({ data }) => {
     };
   }, [itemsToShow, hasMore]); // Reexecuta quando esses valores mudam
 
+  // Inverte a ordem dos dados para que o mais recente fique no topo
+  const reversedData = [...data].reverse();
+  const displayedItems = reversedData.slice(0, itemsToShow);
+
   return (
     <div className='work-list'>
-      {data
-        .slice(0, itemsToShow) // Mostra apenas os primeiros `itemsToShow` itens
-        .reverse()
-        .map((work) => (
-          <WorkCard key={work._id} work={work} />
-        ))}
-        <div>
+      {displayedItems.map((work) => (
+        <WorkCard key={work._id} work={work} />
+      ))}
+      <div>
         {!hasMore && <p className="no-more">Não há mais trabalhos a serem exibidos</p>} {/* Exibe uma mensagem se não houver mais itens */}
-        </div>
-      
+      </div>
     </div>
   );
 };

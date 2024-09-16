@@ -9,6 +9,8 @@ const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB em bytes
 
 const Form = ({ type, work, setWork, handleSubmit }) => {
   const [whatsappAlert, setWhatsappAlert] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false); // Estado para gerenciar o status do envio
+  const [isLoading, setIsLoading] = useState(false); // Estado para gerenciar o estado do loader
 
   // Garantir que photos esteja sempre definido como um array
   const workPhotos = Array.isArray(work.photos) ? work.photos : [];
@@ -63,8 +65,11 @@ const Form = ({ type, work, setWork, handleSubmit }) => {
     }
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
+
+    // Verifica se já está enviando
+    if (isSubmitting) return;
 
     if (!work.category) {
       alert("Por favor, selecione uma categoria.");
@@ -82,7 +87,17 @@ const Form = ({ type, work, setWork, handleSubmit }) => {
       return;
     }
 
-    handleSubmit(e);
+    setIsSubmitting(true); // Define que o formulário está sendo enviado
+    setIsLoading(true); // Exibe o loader
+
+    try {
+      await handleSubmit(e); // Chama a função handleSubmit que deve lidar com o envio dos dados
+    } catch (error) {
+      console.error("Failed to submit form:", error);
+    } finally {
+      setIsSubmitting(false); // Restaura o estado de envio
+      setIsLoading(false); // Oculta o loader
+    }
   };
 
   return (
@@ -210,10 +225,15 @@ const Form = ({ type, work, setWork, handleSubmit }) => {
             <p className="error-message">O número de WhatsApp deve conter 11 dígitos.</p>
           )}
         </div>
-        <button className="submit_btn" type="submit">
-          ANÚNCIAR
+        <button
+          className="submit_btn"
+          type="submit"
+          disabled={isSubmitting} // Desativa o botão enquanto está enviando
+        >
+          {isLoading ? "Enviando..." : "ANÚNCIAR"} {/* Exibe o texto do botão conforme o status */}
         </button>
       </form>
+      
     </div>
   );
 };

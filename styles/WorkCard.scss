@@ -3,9 +3,14 @@
 .work-card {
   position: relative;
   cursor: pointer;
-  padding: 5px; // Metade do padding original
+  padding: 0; // Metade do padding original
   border-radius: 10px;
-  max-width: 190px; // Metade do max-width original
+  max-width: 181px; // Metade do max-width original
+  background: rgba(255, 255, 255, 0.42); /* From https://css.glass */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.3px);
+  -webkit-backdrop-filter: blur(5.3px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 
   &:hover {
     @include shadow;
@@ -14,7 +19,7 @@
   .slider-container {
     width: 180px; // Metade da largura original
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0 ;
     margin-bottom: 5px; // Metade do espaçamento original
 
     .slider {
@@ -40,27 +45,22 @@
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          padding: 3px; // Metade do padding original
-          border-radius: 50%;
-          border: none;
+          
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
-          background-color: rgba(255, 255, 255, 0.7);
           z-index: 99;
 
-          &:hover {
-            background-color: white;
-          }
+          
         }
 
         .prev-button {
-          left: 5px; // Metade do valor original
+          left: 3px; // Metade do valor original
         }
 
         .next-button {
-          right: 5px; // Metade do valor original
+          right: 3px; // Metade do valor original
         }
       }
     }
@@ -71,7 +71,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: left;
-    margin: 7px 0; // Metade do espaçamento original
+    margin: 0 4px; // Metade do espaçamento original
 
     h3 {
       font-size: 12px; // Metade do tamanho da fonte original
@@ -96,9 +96,16 @@
         object-fit: cover;
       }
 
-      span {
-        font-size: 7px; // Metade do tamanho original
-        font-weight: 600;
+      .categoria_card {
+        
+          font-size: 10px; // Metade do tamanho original
+          font-weight: 400;
+          white-space: nowrap; // Impede a quebra de linha
+          overflow: hidden; // Oculta o texto que ultrapassa o limite do elemento
+          text-overflow: ellipsis; // Adiciona reticências quando o texto é cortado
+          max-width: 130px;
+          
+        
       }
     }
 
@@ -112,6 +119,7 @@
       height: 15px; // Metade do tamanho original
       white-space: nowrap; // Impede a quebra de linha
       overflow: hidden; // Oculta o texto que ultrapassa o limite do elemento
+      min-width: 40px;
  
 
     }
@@ -119,11 +127,13 @@
 
   .icon {
     position: absolute;
-    right: 10px; // Metade da distância original
-    top: 10px; // Metade da distância original
+    right: 5px; // Metade da distância original
+    top: 5px; // Metade da distância original
     border: none;
     font-size: 10px; // Metade do tamanho original
     cursor: pointer;
     z-index: 999;
+
+
   }
 }

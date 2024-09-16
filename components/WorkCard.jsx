@@ -109,7 +109,19 @@ const WorkCard = ({ work }) => {
                       goToPrevSlide();
                     }}
                   >
-                    <ArrowBackIosNew sx={{ fontSize: "15px" }} />
+                    <ArrowBackIosNew sx={{
+                      borderRadius: "50%",
+                      color: "#21565a",
+                      padding: "5px",
+                      fontSize: "23px",
+                      backgroundColor: "rgba(255, 255, 255, 0.42)", // Ajustado para o valor original fornecido
+                      boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                      backdropFilter: "blur(5.3px)",
+                      WebkitBackdropFilter: "blur(5.3px)", // `-webkit-` se torna `Webkit` em objetos JavaScript
+                      border: "1px solid rgba(255, 255, 255, 0.3)"
+
+
+                    }} />
                   </div>
                   <div
                     className="next-button"
@@ -118,7 +130,18 @@ const WorkCard = ({ work }) => {
                       goToNextSlide();
                     }}
                   >
-                    <ArrowForwardIos sx={{ fontSize: "15px" }} />
+                    <ArrowForwardIos sx={{
+                      borderRadius: "50%",
+                      color: "#21565a",
+                      padding: "5px",
+                      fontSize: "23px",
+                      backgroundColor: "rgba(255, 255, 255, 0.42)", // Ajustado para o valor original fornecido
+                      boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                      backdropFilter: "blur(5.3px)",
+                      WebkitBackdropFilter: "blur(5.3px)", // `-webkit-` se torna `Webkit` em objetos JavaScript
+                      border: "1px solid rgba(255, 255, 255, 0.3)"
+
+                    }} />
                   </div>
                 </>
               )}
@@ -134,7 +157,7 @@ const WorkCard = ({ work }) => {
             <img style={{ display: "none" }} src={work.creator.profileImagePath} alt="creator" />
             <div>
               <span style={{ display: "none" }}>{work.creator.username}</span>
-              <span style={{ fontSize: '10px', fontWeight: '400' }}>{work.category}</span>
+              <h3 className="categoria_card">{work.category}</h3>
             </div>
           </div>
           <div className="price">R$ {work.price}</div>
@@ -152,10 +175,14 @@ const WorkCard = ({ work }) => {
           <Delete
             sx={{
               borderRadius: "50%",
-              backgroundColor: "rgba(255, 255, 255, 0.7)",
               color: "#21565a",
               padding: "5px",
               fontSize: "25px",
+              backgroundColor: "rgba(255, 255, 255, 0.42)", // Ajustado para o valor original fornecido
+              boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+              backdropFilter: "blur(5.3px)",
+              WebkitBackdropFilter: "blur(5.3px)", // `-webkit-` se torna `Webkit` em objetos JavaScript
+              border: "1px solid rgba(255, 255, 255, 0.3)"
             }}
           />
         </div>
@@ -171,20 +198,28 @@ const WorkCard = ({ work }) => {
             <Favorite
               sx={{
                 borderRadius: "50%",
-                backgroundColor: "rgba(255, 255, 255, 0.7)",
                 color: "#21565a",
                 padding: "5px",
                 fontSize: "25px",
+                backgroundColor: "rgba(255, 255, 255, 0.42)", // Ajustado para o valor original fornecido
+                boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                backdropFilter: "blur(5.3px)",
+                WebkitBackdropFilter: "blur(5.3px)", // `-webkit-` se torna `Webkit` em objetos JavaScript
+                border: "1px solid rgba(255, 255, 255, 0.3)"
               }}
             />
           ) : (
             <FavoriteBorder
               sx={{
                 borderRadius: "50%",
-                backgroundColor: "rgba(255, 255, 255, 0.7)",
+                color: "#21565a",
                 padding: "5px",
                 fontSize: "25px",
-                comor: "#21565a",
+                backgroundColor: "rgba(255, 255, 255, 0.42)", // Ajustado para o valor original fornecido
+                boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                backdropFilter: "blur(5.3px)",
+                WebkitBackdropFilter: "blur(5.3px)", // `-webkit-` se torna `Webkit` em objetos JavaScript
+                border: "1px solid rgba(255, 255, 255, 0.3)"
               }}
             />
           )}
