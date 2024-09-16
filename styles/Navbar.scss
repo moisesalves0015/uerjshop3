@@ -1,6 +1,13 @@
 @import "./variables.module.scss";
 @import "./breakpoints.scss";
 
+.navbar_container{
+
+  display: flex;
+  flex-direction: column;
+
+}
+
 .navbar {
   padding: 15px 60px 30px;
   display: flex;
@@ -33,6 +40,7 @@
     display: flex;
     gap: 10px;
     align-items: center;
+  
 
     input {
       border: none;
@@ -105,6 +113,7 @@
       border-radius: 20px;
       @include shadow;
       z-index: 9999;
+      
 
       @include sm {
         right: 20px;
@@ -125,4 +134,45 @@
       }
     }
   }
+}
+
+
+
+.navbar_right_account{
+  font-size: 20px;
+  color: #21565a;
+
+}
+
+
+.navbar_search{
+
+  @include sm {
+    display:none;
+  }
+
+}
+
+.navbar_mobile{
+  display: none;
+ flex-direction: column;
+
+
+  @include  sm {
+    display:flex;
+  }
+
+}
+
+
+.navbar_mobile_ola{
+
+  font-weight: 500;
+  padding: 0px 20px;
+}
+
+.navbar_mobile_welcome{
+  font-weight: 400;
+  padding: 5px 20px;
+  line-height: 1.2;
 }

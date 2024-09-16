@@ -19,7 +19,7 @@ const Wishlist = () => {
       <Navbar />
 
       <h1 className="title-list">
-        Your Wishlist
+       Seus Favoritos
       </h1>
 
       <WorkList data={wishlist} />

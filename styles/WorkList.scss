@@ -2,13 +2,14 @@
 @import "./breakpoints.scss";
 
 .work-list {
-  padding: 0 40px 120px;
+  padding: 0 10px 120px;
   display: flex;
+
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 5px;
 
   @include lg {
-    padding: 0 20px 120px;
+    padding: 0 10px 120px;
   }
 }

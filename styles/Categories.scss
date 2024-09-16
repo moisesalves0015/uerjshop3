@@ -8,23 +8,25 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 15px;
-  margin-bottom: 60px;
+  padding: 5px;
+  margin-bottom: 30px;
   
   border: 1px solid $lightgrey;
   border-width: 1px 0;
   background-color: $lightblue;
+  overflow-x: auto;   
   
   // Estilo das categorias
   p {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 16px;
     padding: 10px 20px;
     background-color: white;
-    border: 1px solid $lightgrey;
-    border-radius: 12px;
+    border: 2px solid $lightgrey;
+    border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease; // Transição suave
+    margin-inline: 2px;
 
 
 
@@ -46,24 +48,20 @@
     color: white;
     background-color: $pinkred;
     border-color: $pinkred;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25); /* Sombra mais destacada */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.089); /* Sombra mais destacada */
   }
 
   /* Responsividade para telas menores */
   @include sm {
     flex-direction: column;
-    padding: 15px;
-    max-height: 0;
+    padding: 5px;
+    max-height: 70px;
     overflow: hidden;
     transition: max-height 0.3s ease-out;
+    gap: 1px;
+    background-color: white;
+    border: 0px solid $lightgrey;
     
-    &.open {
-      max-height: 100%; /* Altura máxima que as categorias podem ter ao abrir */
-    }
-    
-    &.closed {
-      display: none;
-    }
 
     /* Estilo da categoria selecionada quando fechadas */
     .selected-category {
@@ -73,56 +71,15 @@
     }
   }
 
-  @include mm {
-    gap: 15px;
-    p {
-      font-size: 14px;
-      padding: 8px 15px;
-    }
-  }
+  
 
-  @include md {
-    gap: 20px;
-    p {
-      font-size: 15px;
-      padding: 10px 18px;
-    }
-  }
 
-  @include lg {
-    padding: 20px 30px;
-  }
+
+  
 }
 
-.toggle-categories {
-  display: none; /* Esconde o botão de toggle em telas maiores */
-  @include sm {
-    display: block; /* Mostra o botão de toggle em telas menores */
-    margin-bottom: 10px;
-  }
-
-  font-weight: 600;
-  font-size: 16px;
-  padding: 10px 20px;
-  background-color: white;
-  border: 1px solid $lightgrey;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease; /* Transição suave */
-  margin: 10px 0 10px 10px;
-
-
-  &:hover {
-    color: white;
-    background-color: $pinkred;
-    transform: scale(1.05); /* Aumenta levemente o tamanho */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Sombra mais destacada */
-  }
 
 
 
 
 
-
-
-}

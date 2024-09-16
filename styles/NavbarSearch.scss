@@ -1,0 +1,38 @@
+/* Mantenha os estilos existentes para a navbar */
+
+@import "./variables.module.scss";
+@import "./breakpoints.scss";
+
+
+.navbar_search_mobile {
+    border: 1px solid $grey;
+    border-radius: 30px;
+    height: 45px;
+    padding: 0px 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-inline: auto;
+    margin-block: 15px;
+  
+    input {
+      border: none;
+      outline: none;
+    }
+  
+    &:hover {
+      @include shadow;
+    }
+  
+    @include sm {
+      width: 90%;
+  
+      input {
+        font-size: 14px; // Diminui o tamanho da fonte
+        width: 100%;
+      }
+    }
+  }
+  
+  /* Resto dos estilos existentes para .navbar e outros elementos */
+  

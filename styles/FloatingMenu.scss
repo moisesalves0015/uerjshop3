@@ -1,0 +1,35 @@
+/* styles/FloatingMenu.scss */
+
+@import "./breakpoints.scss";
+
+.floating-menu {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 1000; /* Garante que o menu fique acima de outros elementos */
+  padding: 10px 8px 5px 8px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.42); /* From https://css.glass */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.3px);
+  -webkit-backdrop-filter: blur(5.3px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: none; /* Oculta o menu por padrão */
+
+  @include sm {
+      display: flex; /* Exibe o menu em tamanhos de tela pequenos */
+  }
+}
+
+.floating-menu .menu-button {
+  padding: 7px 10px 2px 10px;
+  background-color: white;
+  font-size: 20px;
+  color: #21565a;
+  border-radius: 100%;
+  margin: 2px;
+  align-items: center;
+}

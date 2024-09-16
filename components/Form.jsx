@@ -5,6 +5,8 @@ import { SiWhatsapp } from "react-icons/si";
 import "@styles/Form.scss";
 import { useState } from "react";
 
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB em bytes
+
 const Form = ({ type, work, setWork, handleSubmit }) => {
   const [whatsappAlert, setWhatsappAlert] = useState(false);
 
@@ -12,10 +14,18 @@ const Form = ({ type, work, setWork, handleSubmit }) => {
   const workPhotos = Array.isArray(work.photos) ? work.photos : [];
 
   const handleUploadPhotos = (e) => {
-    const newPhotos = Array.from(e.target.files); // Use Array.from para converter FileList para Array
+    const newPhotos = Array.from(e.target.files);
+
+    // Filtra os arquivos que são maiores do que o tamanho máximo permitido
+    const validPhotos = newPhotos.filter(photo => photo.size <= MAX_FILE_SIZE);
+    
+    if (validPhotos.length < newPhotos.length) {
+      alert("Algumas imagens foram rejeitadas devido ao tamanho excessivo.");
+    }
+
     setWork((prevWork) => ({
       ...prevWork,
-      photos: [...workPhotos, ...newPhotos],
+      photos: [...workPhotos, ...validPhotos],
     }));
   };
 
@@ -81,7 +91,6 @@ const Form = ({ type, work, setWork, handleSubmit }) => {
       <form onSubmit={onSubmit}>
         <h3>Em qual categoria seu anúncio se enquadra?</h3>
         <div className="category-list">
-
           {categories
             ?.filter(item => item !== "Todas")
             .map((item, index) => (
@@ -95,7 +104,6 @@ const Form = ({ type, work, setWork, handleSubmit }) => {
                 {item}
               </p>
             ))}
-
         </div>
 
         <h3>Adicione imagens para mostrar o seu anúncio</h3>

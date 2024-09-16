@@ -8,17 +8,16 @@ import {
 import "@styles/WorkCard.scss";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const WorkCard = ({ work }) => {
-  console.log(work);
-  /* SLIDER FOR PHOTOS */
   const [currentIndex, setCurrentIndex] = useState(0);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+  const sliderRef = useRef(null);
 
   const goToNextSlide = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex + 1) % work.workPhotoPaths.length
-    );
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % work.workPhotoPaths.length);
   };
 
   const goToPrevSlide = () => {
@@ -29,12 +28,27 @@ const WorkCard = ({ work }) => {
     );
   };
 
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const touchDiff = touchEndX.current - touchStartX.current;
+    if (touchDiff > 50) {
+      goToPrevSlide();
+    } else if (touchDiff < -50) {
+      goToNextSlide();
+    }
+  };
+
   const router = useRouter();
 
-  /* DELETE WORK */
   const handleDelete = async () => {
     const hasConfirmed = confirm("Tem certeza que deseja excluir o anúncio?");
-
     if (hasConfirmed) {
       try {
         await fetch(`api/work/${work._id}`, {
@@ -50,9 +64,7 @@ const WorkCard = ({ work }) => {
   const { data: session, update } = useSession();
   const userId = session?.user?._id;
 
-  /* ADD TO WISHLIST */
   const wishlist = session?.user?.wishlist;
-
   const isLiked = wishlist?.find((item) => item?._id === work._id);
 
   const patchWishlist = async () => {
@@ -60,7 +72,6 @@ const WorkCard = ({ work }) => {
       router.push("/login");
       return;
     }
-
     const response = await fetch(`api/user/${userId}/wishlist/${work._id}`, {
       method: "PATCH",
     });
@@ -75,9 +86,13 @@ const WorkCard = ({ work }) => {
         router.push(`/work-details?id=${work._id}`);
       }}
     >
-
-
-      <div className="slider-container">
+      <div
+        className="slider-container"
+        ref={sliderRef}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         <div
           className="slider"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -85,25 +100,22 @@ const WorkCard = ({ work }) => {
           {work.workPhotoPaths?.map((photo, index) => (
             <div className="slide" key={index}>
               <img src={photo} alt="work" />
-
-              {/* Verifica se há mais de uma foto antes de exibir os botões */}
               {work.workPhotoPaths.length > 1 && (
                 <>
                   <div
                     className="prev-button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      goToPrevSlide(e);
+                      goToPrevSlide();
                     }}
                   >
                     <ArrowBackIosNew sx={{ fontSize: "15px" }} />
                   </div>
-
                   <div
                     className="next-button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      goToNextSlide(e);
+                      goToNextSlide();
                     }}
                   >
                     <ArrowForwardIos sx={{ fontSize: "15px" }} />
@@ -115,27 +127,18 @@ const WorkCard = ({ work }) => {
         </div>
       </div>
 
-
-
-
-
-
       <div className="info">
         <h3>{work.title}</h3>
         <div style={{ display: "flex", flexDirection: 'row', justifyContent: 'space-between' }}>
-
           <div className="creator">
-            <img src={work.creator.profileImagePath} alt="creator" />
-
-            <div style={{ display: "flex", flexDirection: 'column',  }}>
-            <span>{work.creator.username}</span>
-            <span style={{ fontSize: '14px', fontWeight: '400' }}>{work.category}</span>
+            <img style={{ display: "none" }} src={work.creator.profileImagePath} alt="creator" />
+            <div>
+              <span style={{ display: "none" }}>{work.creator.username}</span>
+              <span style={{ fontSize: '10px', fontWeight: '400' }}>{work.category}</span>
             </div>
-
           </div>
           <div className="price">R$ {work.price}</div>
         </div>
-        
       </div>
 
       {userId === work?.creator._id ? (
@@ -149,9 +152,10 @@ const WorkCard = ({ work }) => {
           <Delete
             sx={{
               borderRadius: "50%",
-              backgroundColor: "white",
+              backgroundColor: "rgba(255, 255, 255, 0.7)",
+              color: "#21565a",
               padding: "5px",
-              fontSize: "30px",
+              fontSize: "25px",
             }}
           />
         </div>
@@ -167,19 +171,20 @@ const WorkCard = ({ work }) => {
             <Favorite
               sx={{
                 borderRadius: "50%",
-                backgroundColor: "white",
-                color: "red",
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
+                color: "#21565a",
                 padding: "5px",
-                fontSize: "30px",
+                fontSize: "25px",
               }}
             />
           ) : (
             <FavoriteBorder
               sx={{
                 borderRadius: "50%",
-                backgroundColor: "white",
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
                 padding: "5px",
-                fontSize: "30px",
+                fontSize: "25px",
+                comor: "#21565a",
               }}
             />
           )}
