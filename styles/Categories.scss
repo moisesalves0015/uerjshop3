@@ -61,7 +61,8 @@
     gap: 1px;
     background-color: white;
     border: 0px solid $lightgrey;
-    
+    overflow-x: scroll;
+   
 
     /* Estilo da categoria selecionada quando fechadas */
     .selected-category {
@@ -69,10 +70,26 @@
       text-align: center;
       margin-top: 20px;
     }
+
+
   }
 
   
-
+    /* Oculta a barra de rolagem no WebKit */
+    .scroll-content::-webkit-scrollbar {
+      width: 0; /* Oculta a largura da barra de rolagem horizontal */
+      height: 0; /* Oculta a altura da barra de rolagem vertical */
+    }
+    
+    /* Oculta a pista da barra de rolagem no WebKit */
+    .scroll-content::-webkit-scrollbar-track {
+      background: transparent; /* Remove o fundo da pista */
+    }
+    
+    /* Oculta o polegar da barra de rolagem no WebKit */
+    .scroll-content::-webkit-scrollbar-thumb {
+      background: transparent; /* Remove o fundo do polegar */
+    }
 
 
   

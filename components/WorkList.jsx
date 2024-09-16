@@ -40,7 +40,7 @@ const WorkList = ({ data }) => {
         <WorkCard key={work._id} work={work} />
       ))}
       <div>
-        {!hasMore && <p className="no-more">Não há mais trabalhos a serem exibidos</p>} {/* Exibe uma mensagem se não houver mais itens */}
+        {!hasMore && <p className="no-more">Fim</p>} {/* Exibe uma mensagem se não houver mais itens */}
       </div>
     </div>
   );
