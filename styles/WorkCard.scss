@@ -34,6 +34,7 @@
         display: flex;
         align-items: center;
         border-radius: 10px 10px 0 0 ;
+        overflow: hidden; /* Garante que o conteúdo não saia da div */
 
         img {
           width: 100%;
