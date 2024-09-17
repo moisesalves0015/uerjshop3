@@ -21,12 +21,19 @@ import "@styles/WorkDetails.scss";
 const WorkDetailsContent = () => {
   const [loading, setLoading] = useState(true);
   const [work, setWork] = useState({});
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [visiblePhotos, setVisiblePhotos] = useState(5);
+  const [selectedPhoto, setSelectedPhoto] = useState(0);
 
   const searchParams = useSearchParams();
   const workId = searchParams.get("id");
 
   const message = `Olá, tenho interesse no produto "${work.title}" que está à venda por R$${work.price}.`;
   const whatsappURL = `https://api.whatsapp.com/send?phone=55${work.whatsapp}&text=${encodeURIComponent(message)}`;
+
+  const { data: session, update } = useSession();
+  const router = useRouter();
+  const userId = session?.user?._id;
 
   /* GET WORK DETAILS */
   useEffect(() => {
@@ -44,13 +51,7 @@ const WorkDetailsContent = () => {
     }
   }, [workId]);
 
-  const { data: session, update } = useSession();
-  const router = useRouter();
-  const userId = session?.user?._id;
-
   /* SLIDER FOR PHOTOS */
-  const [currentIndex, setCurrentIndex] = useState(0);
-
   const goToNextSlide = () => {
     setCurrentIndex(
       (prevIndex) => (prevIndex + 1) % work.workPhotoPaths.length
@@ -66,15 +67,11 @@ const WorkDetailsContent = () => {
   };
 
   /* SHOW MORE PHOTOS */
-  const [visiblePhotos, setVisiblePhotos] = useState(5);
-
   const loadMorePhotos = () => {
     setVisiblePhotos(work.workPhotoPaths.length);
   };
 
   /* SELECT PHOTO TO SHOW */
-  const [selectedPhoto, setSelectedPhoto] = useState(0);
-
   const handleSelectedPhoto = (index) => {
     setSelectedPhoto(index);
     setCurrentIndex(index);
@@ -178,12 +175,16 @@ const WorkDetailsContent = () => {
             {work.workPhotoPaths?.map((photo, index) => (
               <div className="slide" key={index}>
                 <img src={photo} alt="work" />
-                <div className="prev-button" onClick={goToPrevSlide}>
-                  <ArrowBackIosNew sx={{ fontSize: "15px" }} />
-                </div>
-                <div className="next-button" onClick={goToNextSlide}>
-                  <ArrowForwardIos sx={{ fontSize: "15px" }} />
-                </div>
+                {work.workPhotoPaths.length > 1 && (
+                  <>
+                    <div className="prev-button" onClick={goToPrevSlide}>
+                      <ArrowBackIosNew sx={{ fontSize: "15px" }} />
+                    </div>
+                    <div className="next-button" onClick={goToNextSlide}>
+                      <ArrowForwardIos sx={{ fontSize: "15px" }} />
+                    </div>
+                  </>
+                )}
               </div>
             ))}
           </div>
