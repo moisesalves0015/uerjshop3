@@ -61,7 +61,7 @@ const WorkCard = ({ work }) => {
     }
   };
 
-  const { data: session, status } = useSession();
+  const { data: session, update } = useSession();
   const userId = session?.user?._id;
 
   const wishlist = session?.user?.wishlist;
